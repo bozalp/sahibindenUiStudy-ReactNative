@@ -1,15 +1,27 @@
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import React, { useState } from 'react';
+import { View, Text, FlatList, StyleSheet, TextInput } from "react-native";
 import CategoryLine from "../Components/CategoryLine";
 import categories from '../JsonFiles/Categories.json';
 
+const SearchBar = () => {
+    return (
+        <View style={styles.searchBar_area}>
+            <TextInput placeholder="Kelime veya ilan No. ile ara"
+                onChangeText={newText => setText(newText)} style={styles.searchBar} />
+        </View>
+    )
+}
 
 const CategoryList = () => {
+    const [text, setText] = useState('');
     const renderItems = ({ item }) => <CategoryLine iconBackground={item.iconBackground} iconName={item.iconName} title={item.title} subTitle={item.subTitle} />
 
     return (
         <View style={{ flex: 1, backgroundColor: '#000' }}>
-
             <FlatList
+                ListHeaderComponent={
+                    <SearchBar />
+                }
                 ListFooterComponent={
                     <Text style={styles.footer}>
                         Batuhan ÖZALP - github.com/bozalp
@@ -25,14 +37,28 @@ const styles = StyleSheet.create(
     {
         searchBar:
         {
-            height: 64,
-            width: '100%'
+            height: 50,
+            width: '100%',
+            backgroundColor: '#999',
+            borderWidth: 1,
+            borderColor: '#dedede',
+            padding: 10,
+            margin: 10,
+        },
+        searchBar_area:
+        {
+            height: 72,
+            width: '100%',
+            padding: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#111',
         },
         footer:
         {
             height: 50,
             color: 'white',
-            padding:10
+            padding: 10
         }
     }
 )

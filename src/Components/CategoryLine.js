@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Icons from '@expo/vector-icons/FontAwesome5';
 
-const CategoryLine = ({ iconBackground, iconName, title, subTitle }) => {
+const CategoryLine = ({ iconBackground, iconName, title, subTitle, isMenu }) => {
     function getSubTitle(subTitle) {
         if (subTitle.length > 40)
             return subTitle.slice(0, 40) + "..."
@@ -24,6 +24,9 @@ const CategoryLine = ({ iconBackground, iconName, title, subTitle }) => {
                         }
                     </Text>
                 </View>
+                {
+                    !isMenu && <Icons name={"angle-right"} size={20} color="#fff" style={styles.right_arrow} />
+                }
             </TouchableOpacity>
             <View style={styles.bottomLine} />
         </View>
@@ -62,13 +65,18 @@ const styles = StyleSheet.create(
         },
         title:
         {
-            fontSize:16,
-            color:'#fff'
+            fontSize: 16,
+            color: '#fff'
         },
         subTitle:
         {
             color: '#bfbfbf',
             fontSize: 12
+        },
+        right_arrow:
+        {
+            position: "absolute",
+            right: 20,
         }
     }
 )
