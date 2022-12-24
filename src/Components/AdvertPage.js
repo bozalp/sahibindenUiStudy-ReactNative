@@ -2,6 +2,7 @@ import { View, Text, FlatList, StyleSheet, Image, Alert, TouchableOpacity } from
 import { useState, useEffect } from 'react';
 
 import InfoTableRow from "./InfoTableRow";
+import Location from "./Location";
 import Details from '../JsonFiles/Details.json';
 const AdvertPage = () => {
     // const [images, setImages] = useState(Details.map((img) => img.images));
@@ -86,9 +87,7 @@ const AdvertPage = () => {
                                 </Text>
                             </View> :
                             <View>
-                                <Text style={{ color: 'white' }}>
-                                    konum
-                                </Text>
+                                <Location />
                             </View>
                 }
             </View>
