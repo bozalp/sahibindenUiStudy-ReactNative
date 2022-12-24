@@ -1,8 +1,10 @@
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from "react-native";
+import { useState } from "react";
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import CategoryLine from "../Components/CategoryLine";
 import categories from '../JsonFiles/Categories.json';
 
 import Icons from '@expo/vector-icons/FontAwesome';
+import Icons2 from '@expo/vector-icons/Ionicons';
 
 const CustomButton = ({ title, iconName }) => {
     return (
@@ -11,11 +13,12 @@ const CustomButton = ({ title, iconName }) => {
             <Text style={styles.header_title}>
                 {title}
             </Text>
-            <Icons name={"angle-right"} size={20} color="#fff" style={{position:"absolute", right: 0,}}/>
+            <Icons name={"angle-right"} size={20} color="#fff" style={{ position: "absolute", right: 0, }} />
         </TouchableOpacity>
     )
 }
 const DrawerMenu = () => {
+    const [theme, setTheme] = useState("dark");
 
     function getTitle(title) {
         if (title.length > 20)
@@ -24,10 +27,14 @@ const DrawerMenu = () => {
             return title;
     }
 
+    function changeTheme() {
+        setTheme(theme === "dark" ? "light" : "dark");
+    }
+
     const renderItems = ({ item }) => <CategoryLine iconBackground={item.iconBackground} iconName={item.iconName} title={getTitle(item.title)} subTitle={getTitle(item.subTitle)} isMenu={true} />
 
     return (
-        <View style={{ flex: 1, backgroundColor: '#000' }}>
+        <View style={{ flex: 1, backgroundColor: theme === "dark" ? 'black' : 'white' }}>
 
             <FlatList
                 ListHeaderComponent={
@@ -38,9 +45,19 @@ const DrawerMenu = () => {
                     </View>
                 }
                 ListFooterComponent={
-                    <Text style={styles.footer}>
-                        Batuhan ÖZALP - github.com/bozalp
-                    </Text>
+                    <View style={styles.footer}>
+                        <TouchableOpacity activeOpacity={0.7} style={styles.mode_button} onPress={changeTheme}>
+                            <Icons2 name={theme === "dark" ? 'sunny' : 'moon'} size={28} color={theme === "dark" ? 'white' : 'black'} />
+                            <Text style={{ paddingLeft: 10, color: theme === "dark" ? 'white' : 'black' }}>
+                                {
+                                    theme === "dark" ? "Gündüz modu" : "Gece Modu"
+                                }
+                            </Text>
+                        </TouchableOpacity>
+                        <Text style={{ color: theme === "dark" ? 'white' : 'black' }}>
+                            Batuhan ÖZALP - github.com/bozalp
+                        </Text>
+                    </View>
                 }
                 data={categories}
                 renderItem={renderItems} />
@@ -52,9 +69,14 @@ const styles = StyleSheet.create(
     {
         footer:
         {
-            height: 72,
-            color: 'white',
+            height: 100,
             padding: 10,
+        },
+        mode_button:
+        {
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 10
         },
         header:
         {
@@ -63,7 +85,6 @@ const styles = StyleSheet.create(
             backgroundColor: '#195e90',
             height: 200,
             width: '100%',
-            
         },
         header_button:
         {
