@@ -31,7 +31,7 @@ const AdvertPage = () => {
             </View>
             {
                 Details.map((img, key) => <Image key={key} source={{
-                    uri: img.images.toString(),
+                    uri: img.images[0].toString(),
                 }} style={styles.images} />)
 
             }
