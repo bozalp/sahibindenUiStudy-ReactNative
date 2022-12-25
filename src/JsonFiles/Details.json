@@ -1,7 +1,7 @@
 [
     {
         "id": 123456789,
-        "categori": "vasita",
+        "category": "vasita",
         "title": "Çok temiz araç",
         "owner": "Yürüyen Johnnie",
         "subTitle": "Vasıta",
@@ -23,7 +23,7 @@
     },
     {
         "id": 456789123,
-        "categori": "vasita",
+        "category": "vasita",
         "title": "Serdar beye hayırlı olsun",
         "owner": "Ali Veli Galeri",
         "subTitle": "Vasıta",

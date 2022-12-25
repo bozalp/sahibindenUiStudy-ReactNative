@@ -1,16 +1,27 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import Icons from '@expo/vector-icons/FontAwesome5';
 
-const CategoryLine = ({ iconBackground, iconName, title, subTitle, isMenu }) => {
+import ProductListPage from "./ProductListPage";
+import { useNavigation } from '@react-navigation/native';
+
+const CategoryLine = ({ iconBackground, iconName, category, title, subTitle, isMenu }) => {
+    const navigation = useNavigation();
+
     function getSubTitle(subTitle) {
         if (subTitle.length > 40)
             return subTitle.slice(0, 40) + "..."
         else
             return subTitle;
     }
+
+    function GoProductsPage() {
+        //Alert.alert(category.toString());
+        navigation.navigate('ProductListPage', {category});
+    }
+
     return (
         <View>
-            <TouchableOpacity style={styles.line} activeOpacity={0.7}>
+            <TouchableOpacity style={styles.line} activeOpacity={0.7} onPress={GoProductsPage}>
                 <View style={[styles.iconBg, { backgroundColor: iconBackground }]}>
                     <Icons name={iconName} size={20} color="#000" />
                 </View>

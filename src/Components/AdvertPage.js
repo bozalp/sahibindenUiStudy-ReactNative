@@ -4,15 +4,18 @@ import { useState, useEffect } from 'react';
 import InfoTableRow from "./InfoTableRow";
 import Location from "./Location";
 import Details from '../JsonFiles/Details.json';
-const AdvertPage = () => {
+const AdvertPage = ({ route }) => {
     // const [images, setImages] = useState(Details.map((img) => img.images));
     const [data, setData] = useState([{}]);
     const [activeTab, setActiveTab] = useState(0);
+    const [images, setImages] = useState([{}]);
+    const { id } = route.params;
 
     useEffect(() => {
-        const datas = Details.find(d => d.id === 123456789);
+        const datas = Details.find(d => d.id === id);
         setData(datas);
-        // Alert.alert(d.title)
+        setImages(datas.images);
+        //Alert.alert(typeof(datas.images))
     }, []);
 
     function changeTab(tabNo) {
@@ -26,26 +29,29 @@ const AdvertPage = () => {
         <View style={styles.container}>
             <View style={styles.title}>
                 <Text style={{ color: 'white' }}>
-                    {data.title}
+                    {data?.title}
                 </Text>
             </View>
             {
-                Details.map((img, key) => <Image key={key} source={{
+                <Image key={id} source={{
+                    uri: images[0].toString(),
+                }} style={styles.images} />
+                /*data?.map((img, key) => <Image key={key} source={{
                     uri: img.images[0].toString(),
-                }} style={styles.images} />)
+                }} style={styles.images} />)*/
 
             }
             <View style={styles.title}>
                 <Text style={{ color: 'white', fontWeight: "700" }}>
-                    {data.owner}
+                    {data?.owner}
                 </Text>
             </View>
             <View style={styles.sub_title}>
                 <Text style={{ color: '#37c1ff' }}>
-                    {data.subTitle}
+                    {data?.subTitle}
                 </Text>
                 <Text style={{ color: '#999' }}>
-                    {data.location}
+                    {data?.location}
                 </Text>
             </View>
             <View style={styles.button}>
@@ -72,9 +78,9 @@ const AdvertPage = () => {
                 {
                     activeTab === 0 ?
                         <View>
-                            <InfoTableRow title={"Fiyat"} value={data.price} textColor='#37c1ff' />
-                            <InfoTableRow title={"İlan Tarihi"} value={data.publishDate} textColor='#ccc' />
-                            <InfoTableRow title={"İlan No"} value={data.id} textColor='#ff6600' />
+                            <InfoTableRow title={"Fiyat"} value={data?.price} textColor='#37c1ff' />
+                            <InfoTableRow title={"İlan Tarihi"} value={data?.publishDate} textColor='#ccc' />
+                            <InfoTableRow title={"İlan No"} value={data?.id} textColor='#ff6600' />
                             <Text style={{ color: 'white' }}>
                                 İlan tipine göre değişen bilgiler...
                             </Text>
@@ -83,7 +89,7 @@ const AdvertPage = () => {
                         activeTab === 1 ?
                             <View>
                                 <Text style={{ color: 'white' }}>
-                                    {data.description}
+                                    {data?.description}
                                 </Text>
                             </View> :
                             <View>

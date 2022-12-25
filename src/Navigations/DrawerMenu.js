@@ -3,13 +3,20 @@ import { View, Text, FlatList, StyleSheet, TouchableOpacity, Alert } from "react
 import CategoryLine from "../Components/CategoryLine";
 import categories from '../JsonFiles/Categories.json';
 
+import { useNavigation } from '@react-navigation/native';
 import Icons from '@expo/vector-icons/FontAwesome';
 import Icons2 from '@expo/vector-icons/Ionicons';
 
-const CustomButton = ({ title, iconName }) => {
+const CustomButton = ({ title, iconName, whichPage }) => {
+    const navigation = useNavigation();
+
+    function GoOtherPage() {
+        navigation.navigate(whichPage);
+    }
+
     return (
-        <TouchableOpacity style={styles.header_button} activeOpacity={0.7}>
-            <Icons name={iconName} size={20} color="#fff" />
+        <TouchableOpacity style={styles.header_button} activeOpacity={0.7} onPress={GoOtherPage}>
+            <Icons2 name={iconName} size={20} color="#fff" />
             <Text style={styles.header_title}>
                 {title}
             </Text>
@@ -17,7 +24,7 @@ const CustomButton = ({ title, iconName }) => {
         </TouchableOpacity>
     )
 }
-const DrawerMenu = () => {
+const DrawerMenu = ({ navigation }) => {
     const [theme, setTheme] = useState("dark");
 
     function getTitle(title) {
@@ -39,9 +46,9 @@ const DrawerMenu = () => {
             <FlatList
                 ListHeaderComponent={
                     <View style={styles.header}>
-                        <CustomButton title={"Anasayfa"} iconName={"home"} />
-                        <CustomButton title={"Bana Özel"} iconName={"user"} />
-                        <CustomButton title={"İlan Ver"} iconName={"plus"} />
+                        <CustomButton title={"Anasayfa"} iconName={"home"} whichPage={"CategoryList"} />
+                        <CustomButton title={"Bana Özel"} iconName={"person"} />
+                        <CustomButton title={"İlan Ver"} iconName={"add"} />
                     </View>
                 }
                 ListFooterComponent={
@@ -94,7 +101,7 @@ const styles = StyleSheet.create(
         header_title:
         {
             color: 'white',
-            paddingLeft: 24,
+            paddingLeft: 20,
             fontSize: 16,
         }
     }

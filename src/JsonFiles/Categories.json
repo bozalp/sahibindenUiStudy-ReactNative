@@ -2,6 +2,7 @@
     {
         "id": 0,
         "title": "Emlak",
+        "category":"emlak",
         "subTitle": "Konut, İşyeri, Arsa, Projeler",
         "iconName": "home",
         "iconBackground": "#fcae18"
@@ -9,6 +10,7 @@
     {
         "id": 1,
         "title": "Vasıta",
+        "category":"vasita",
         "subTitle": "Otomobil, Arazi, SUV & Pickup, Motosiklet, Minivan & Panelvan",
         "iconName": "car",
         "iconBackground": "#f42b2b"
@@ -16,6 +18,7 @@
     {
         "id": 2,
         "title": "Yedek Parça, Aksesuar, Donanım",
+        "category":"parca",
         "subTitle": "Otomotiv Ekipmanları, Motosiklet Ekipmanları, Deniz Aracı Ekipmanları",
         "iconName": "wrench",
         "iconBackground": "#07b9bb"
@@ -23,6 +26,7 @@
     {
         "id": 3,
         "title": "İkinci El ve Sıfır Alışveriş",
+        "category":"ikinciel",
         "subTitle": "Bilgisayar,Cep Telefonu, Fotoğraf & Kamera, Ev Dekorasyon",
         "iconName": "shopping-cart",
         "iconBackground": "#6b6ef8"
@@ -30,6 +34,7 @@
     {
         "id": 4,
         "title": "İş Makineleri & Sanayi",
+        "category":"makine",
         "subTitle": "İş Makineleri, Tarım Makineleri, Sanayi, Elektrik & Enerji ",
         "iconName": "tractor",
         "iconBackground": "#a75fff"
@@ -37,6 +42,7 @@
     {
         "id": 5,
         "title": "Ustalar ve Hizmetler",
+        "category":"usta",
         "subTitle": "Ev Tadilat & Dekorasyon, Nakliye, Araç Servis & Bakım",
         "iconName": "paint-roller",
         "iconBackground": "#429fdf"
@@ -44,6 +50,7 @@
     {
         "id": 6,
         "title": "Özel Ders Verenler",
+        "category":"ders",
         "subTitle": "Lise & Üniversite, İlkokul & Ortaokul, Yabancı Dil, Bilgisayar",
         "iconName": "book-open",
         "iconBackground": "#52b37d"
@@ -51,6 +58,7 @@
     {
         "id": 7,
         "title": "İş İlanları",
+        "category":"is",
         "subTitle": "Avukatlık & Hukuki Danışmanlık, Eğitim, Eğlence ve Aktiviteler",
         "iconName": "user-tie",
         "iconBackground": "#93b940"
@@ -58,6 +66,7 @@
     {
         "id": 8,
         "title": "Yardımcı Arayanlar",
+        "category":"yardimci",
         "subTitle": "Bebek & Çocuk Bakıcısı, Yaşlı & Hasta Bakıcısı, Temizlikçi & Ev İşlerine Yardımcı",
         "iconName": "baby-carriage",
         "iconBackground": "#fa8044"
@@ -65,6 +74,7 @@
     {
         "id": 9,
         "title": "Hayvanlar Alemi",
+        "category":"hayvan",
         "subTitle": "Evcil Hayvanlar, Akvaryum Balıkları, Aksesuarlar ",
         "iconName": "paw",
         "iconBackground": "#19bae8"

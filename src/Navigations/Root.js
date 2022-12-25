@@ -7,6 +7,8 @@ import DrawerMenu from './DrawerMenu';
 import Home from './Home';
 import AdvertPage from "../Components/AdvertPage";
 import ProductListPage from "../Components/ProductListPage";
+import CategoryLine from "../Components/CategoryLine";
+
 import categories from '../JsonFiles/Categories.json';
 
 const Drawer = createDrawerNavigator();
@@ -22,6 +24,13 @@ const Root = () => {
             }}
                 drawerContent={(props) => <DrawerMenu {...props} />}
             >
+                <Drawer.Screen name="Home" component={Home} options={{
+                    title: "Anasayfa",
+                    headerTitle: 'Özalpten.com',
+                    headerTintColor: 'white',
+                    drawerInactiveTintColor: 'white',
+                    headerStyle: { backgroundColor: '#175f92' },
+                }} />
                 <Drawer.Screen name="ProductListPage" component={ProductListPage} options={{
                     headerTitle: 'Başlık',
                     headerTintColor: 'white',
@@ -35,9 +44,9 @@ const Root = () => {
                     drawerInactiveTintColor: 'white',
                     headerStyle: { backgroundColor: '#175f92' },
                 }} />
-                <Drawer.Screen name="Home" component={Home} options={{
-                    title: "Anasayfa",
-                    headerTitle: 'Özalpten.com',
+                <Drawer.Screen name="CategoryLine" component={CategoryLine} options={{
+                    title: "İlan Detayı",
+                    headerTitle: 'İlan Detayı',
                     headerTintColor: 'white',
                     drawerInactiveTintColor: 'white',
                     headerStyle: { backgroundColor: '#175f92' },

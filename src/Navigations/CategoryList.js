@@ -4,6 +4,7 @@ import CategoryLine from "../Components/CategoryLine";
 import categories from '../JsonFiles/Categories.json';
 
 const SearchBar = () => {
+    const [text, setText] = useState('');
     return (
         <View style={styles.searchBar_area}>
             <TextInput placeholder="Kelime veya ilan No. ile ara"
@@ -12,9 +13,9 @@ const SearchBar = () => {
     )
 }
 
-const CategoryList = () => {
-    const [text, setText] = useState('');
-    const renderItems = ({ item }) => <CategoryLine iconBackground={item.iconBackground} iconName={item.iconName} title={item.title} subTitle={item.subTitle} />
+const CategoryList = ({ navigation }) => {
+
+    const renderItems = ({ item }) => <CategoryLine iconBackground={item.iconBackground} iconName={item.iconName} category={item.category} title={item.title} subTitle={item.subTitle} />
 
     return (
         <View style={{ flex: 1, backgroundColor: '#000' }}>

@@ -4,18 +4,23 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, Alert, Dimensions, Fla
 import Icons from '@expo/vector-icons/MaterialIcons';
 import Details from '../JsonFiles/Details.json';
 
-const ProductListPage = ({ image, title, location, price }) => {
+const ProductListPage = ({ route, navigation, image, title, location, price }) => {
     const [data, setData] = useState([{}]);
+    const { category } = route.params;
 
     useEffect(() => {
-        const datas = Details.filter(d => d.categori === "vasita");
+        const datas = Details.filter(d => d.category === category);
         setData(datas);
-        //Alert.alert(datas.toString())
+        //Alert.alert(category)
     }, []);
+
+    function GoProductPage(id) {
+        navigation.navigate("AdvertPage", { id })
+    }
 
     const renderItems = ({ item }) =>
         <View>
-            <TouchableOpacity activeOpacity={0.7} style={styles.container}>
+            <TouchableOpacity activeOpacity={0.7} style={styles.container} onPress={() => GoProductPage(item.id)}>
                 <Image key={item.id} source={{
                     uri: item?.images[0].toString(),
                 }} style={styles.image} />
@@ -40,9 +45,8 @@ const ProductListPage = ({ image, title, location, price }) => {
         </View>
     return (
         <FlatList style={{ flex: 1, backgroundColor: '#000' }}
-            data={Details.filter(d => d.categori === "vasita")}
+            data={Details.filter(d => d.category === category)}
             renderItem={renderItems}
-        //ItemSeparatorComponent={ }
         />
     )
 }
