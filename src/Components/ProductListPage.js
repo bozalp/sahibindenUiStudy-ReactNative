@@ -4,14 +4,17 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, Alert, Dimensions, Fla
 import Icons from '@expo/vector-icons/MaterialIcons';
 import Details from '../JsonFiles/Details.json';
 
+import { useSelector } from 'react-redux';
+
 const ProductListPage = ({ route, navigation, image, title, location, price }) => {
+    const theme = useSelector((state) => state.theme.theme)
+
     const [data, setData] = useState([{}]);
     const { category } = route.params;
 
     useEffect(() => {
         const datas = Details.filter(d => d.category === category);
         setData(datas);
-        //Alert.alert(category)
     }, []);
 
     function GoProductPage(id) {
@@ -25,7 +28,7 @@ const ProductListPage = ({ route, navigation, image, title, location, price }) =
                     uri: item?.images[0].toString(),
                 }} style={styles.image} />
                 <View style={{ justifyContent: 'space-between', flex: 1 }}>
-                    <Text style={[styles.title, { color: "#fff" }]}>
+                    <Text style={[styles.title, { color: theme.color }]}>
                         {item?.title}
                     </Text>
                     <View style={styles.location_area}>
@@ -35,7 +38,7 @@ const ProductListPage = ({ route, navigation, image, title, location, price }) =
                                 {item?.location}
                             </Text>
                         </View>
-                        <Text style={{ color: '#1f66a6', fontWeight: '700', fontSize: 15 }}>
+                        <Text style={{ color: theme.priceColor, fontWeight: '700', fontSize: 15 }}>
                             {item?.price}
                         </Text>
                     </View>
@@ -44,10 +47,16 @@ const ProductListPage = ({ route, navigation, image, title, location, price }) =
             <View style={styles.seperate_line} />
         </View>
     return (
-        <FlatList style={{ flex: 1, backgroundColor: '#000' }}
-            data={Details.filter(d => d.category === category)}
-            renderItem={renderItems}
-        />
+        data.length > 0 ?
+            <FlatList style={{ flex: 1, backgroundColor: theme.backgroundColor }}
+                data={Details.filter(d => d.category === category)}
+                renderItem={renderItems}
+            /> :
+            <View style={{ flex: 1, backgroundColor: theme.backgroundColor }}>
+                <Text style={{ color: theme.color, padding:10 }}>
+                    Burada hiç ilan yok...
+                </Text>
+            </View>
     )
 }
 
@@ -58,7 +67,6 @@ const styles = StyleSheet.create(
             flexDirection: 'row',
             width: '100%',
             padding: 10,
-            //backgroundColor: 'lightblue',
             height: Dimensions.get('window').width / 3.5,
             alignItems: 'center'
         },
@@ -67,7 +75,6 @@ const styles = StyleSheet.create(
             width: Dimensions.get('window').width / 3,
             height: Dimensions.get('window').width / 4,
             marginRight: 10,
-            //resizeMode: "repeat",
         },
         title:
         {
@@ -81,7 +88,6 @@ const styles = StyleSheet.create(
             justifyContent: 'space-between',
             flex: 1,
             alignItems: 'flex-end',
-            //backgroundColor: 'red',
             paddingBottom: 10,
         },
         seperate_line:

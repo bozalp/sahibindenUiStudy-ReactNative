@@ -4,8 +4,11 @@ import { useState, useEffect } from 'react';
 import InfoTableRow from "./InfoTableRow";
 import Location from "./Location";
 import Details from '../JsonFiles/Details.json';
+
+import { useSelector } from 'react-redux';
+
 const AdvertPage = ({ route }) => {
-    // const [images, setImages] = useState(Details.map((img) => img.images));
+    const theme = useSelector((state) => state.theme.theme)
     const [data, setData] = useState([{}]);
     const [activeTab, setActiveTab] = useState(0);
     const [images, setImages] = useState([{}]);
@@ -15,7 +18,6 @@ const AdvertPage = ({ route }) => {
         const datas = Details.find(d => d.id === id);
         setData(datas);
         setImages(datas.images);
-        //Alert.alert(typeof(datas.images))
     }, []);
 
     function changeTab(tabNo) {
@@ -26,9 +28,9 @@ const AdvertPage = ({ route }) => {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
             <View style={styles.title}>
-                <Text style={{ color: 'white' }}>
+                <Text style={{ color: theme.color }}>
                     {data?.title}
                 </Text>
             </View>
@@ -36,59 +38,57 @@ const AdvertPage = ({ route }) => {
                 <Image key={id} source={{
                     uri: images[0].toString(),
                 }} style={styles.images} />
-                /*data?.map((img, key) => <Image key={key} source={{
-                    uri: img.images[0].toString(),
-                }} style={styles.images} />)*/
-
             }
-            <View style={styles.title}>
-                <Text style={{ color: 'white', fontWeight: "700" }}>
+            <View style={[styles.title, {height:40, backgroundColor: theme.backgroundColor }]}>
+                <Text style={{ color: theme.color, fontWeight: "700" }}>
                     {data?.owner}
                 </Text>
             </View>
             <View style={styles.sub_title}>
-                <Text style={{ color: '#37c1ff' }}>
+                <Text style={{ color: theme.priceColor }}>
                     {data?.subTitle}
                 </Text>
-                <Text style={{ color: '#999' }}>
+                <Text style={{ color: '#969696' }}>
                     {data?.location}
                 </Text>
             </View>
             <View style={styles.button}>
-                <TouchableOpacity style={[styles.altButtons, { backgroundColor: activeTab === 0 ? '#fec818' : '#000' }]} activeOpacity={0.7}
+                <TouchableOpacity style={[styles.altButtons, { backgroundColor: activeTab === 0 ? '#fec818' : theme.backgroundColor }]} activeOpacity={0.7}
                     onPress={() => changeTab(0)}>
-                    <Text style={{ color: 'white' }}>
+                    <Text style={{ color: theme.color }}>
                         İlan Bilgileri
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.altButtons, { backgroundColor: activeTab === 1 ? '#fec818' : '#000' }]} activeOpacity={0.7}
+                <TouchableOpacity style={[styles.altButtons, { backgroundColor: activeTab === 1 ? '#fec818' : theme.backgroundColor }]} activeOpacity={0.7}
                     onPress={() => changeTab(1)}>
-                    <Text style={{ color: 'white' }}>
+                    <Text style={{ color: theme.color }}>
                         Açıklama
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.altButtons, { backgroundColor: activeTab === 2 ? '#fec818' : '#000' }]} activeOpacity={0.7}
+                <TouchableOpacity style={[styles.altButtons, { backgroundColor: activeTab === 2 ? '#fec818' : theme.backgroundColor }]} activeOpacity={0.7}
                     onPress={() => changeTab(2)}>
-                    <Text style={{ color: 'white' }}>
+                    <Text style={{ color: theme.color }}>
                         Konumu
                     </Text>
                 </TouchableOpacity>
             </View>
+            <View style={{ width: '100%', height: 2, backgroundColor: '#fec818', top:-11, }} />
+
             <View style={{ padding: 10 }}>
                 {
                     activeTab === 0 ?
                         <View>
-                            <InfoTableRow title={"Fiyat"} value={data?.price} textColor='#37c1ff' />
-                            <InfoTableRow title={"İlan Tarihi"} value={data?.publishDate} textColor='#ccc' />
+                            <InfoTableRow title={"Fiyat"} value={data?.price} textColor={theme.priceColor} />
+                            <InfoTableRow title={"İlan Tarihi"} value={data?.publishDate} textColor='#969696' />
                             <InfoTableRow title={"İlan No"} value={data?.id} textColor='#ff6600' />
-                            <Text style={{ color: 'white' }}>
+                            <Text style={{ color: theme.color }}>
                                 İlan tipine göre değişen bilgiler...
                             </Text>
                         </View>
                         :
                         activeTab === 1 ?
                             <View>
-                                <Text style={{ color: 'white' }}>
+                                <Text style={{ color: theme.color }}>
                                     {data?.description}
                                 </Text>
                             </View> :
@@ -106,7 +106,6 @@ const styles = StyleSheet.create(
         container:
         {
             flex: 1,
-            backgroundColor: '#000',
             //height: '100%'
         },
         images:
@@ -118,14 +117,13 @@ const styles = StyleSheet.create(
         {
             width: '100%',
             height: 48,
-            backgroundColor: '#111',
             justifyContent: 'center',
             alignItems: 'center'
         },
         sub_title:
         {
             width: '100%',
-            height: 48,
+            height: 40,
             justifyContent: 'center',
             alignItems: 'center',
         },
@@ -134,7 +132,6 @@ const styles = StyleSheet.create(
             padding: 7,
             flexDirection: 'row',
             justifyContent: 'space-between',
-            // backgroundColor: '#ccc'
         },
         altButtons:
         {
@@ -144,7 +141,7 @@ const styles = StyleSheet.create(
             padding: 10,
             justifyContent: 'center',
             alignItems: 'center',
-            margin: 3
+            margin: 3,
         },
     }
 )

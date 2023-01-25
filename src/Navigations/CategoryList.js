@@ -3,28 +3,34 @@ import { View, Text, FlatList, StyleSheet, TextInput } from "react-native";
 import CategoryLine from "../Components/CategoryLine";
 import categories from '../JsonFiles/Categories.json';
 
+import { useSelector } from 'react-redux';
+
 const SearchBar = () => {
+    const theme = useSelector((state) => state.theme.theme)
     const [text, setText] = useState('');
+
     return (
-        <View style={styles.searchBar_area}>
+        <View style={[styles.searchBar_area, { backgroundColor: theme.backgroundColor }]}>
             <TextInput placeholder="Kelime veya ilan No. ile ara"
-                onChangeText={newText => setText(newText)} style={styles.searchBar} />
+            placeholderTextColor={'#969696'}
+                onChangeText={newText => setText(newText)} style={[styles.searchBar, { color: theme.color }]} />
         </View>
     )
 }
 
 const CategoryList = ({ navigation }) => {
+    const theme = useSelector((state) => state.theme.theme)
 
-    const renderItems = ({ item }) => <CategoryLine iconBackground={item.iconBackground} iconName={item.iconName} category={item.category} title={item.title} subTitle={item.subTitle} />
+    const renderItems = ({ item }) => <CategoryLine theme={theme} iconBackground={item.iconBackground} iconName={item.iconName} category={item.category} title={item.title} subTitle={item.subTitle} />
 
     return (
-        <View style={{ flex: 1, backgroundColor: '#000' }}>
+        <View style={{ flex: 1, backgroundColor: theme.backgroundColor }}>
             <FlatList
                 ListHeaderComponent={
                     <SearchBar />
                 }
                 ListFooterComponent={
-                    <Text style={styles.footer}>
+                    <Text style={[styles.footer, { color: theme.color }]}>
                         Batuhan ÖZALP - github.com/bozalp
                     </Text>
                 }
@@ -40,9 +46,8 @@ const styles = StyleSheet.create(
         {
             height: 50,
             width: '100%',
-            backgroundColor: '#999',
             borderWidth: 1,
-            borderColor: '#dedede',
+            borderColor: '#969696',
             padding: 10,
             margin: 10,
         },
@@ -53,12 +58,10 @@ const styles = StyleSheet.create(
             padding: 10,
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: '#111',
         },
         footer:
         {
             height: 50,
-            color: 'white',
             padding: 10
         }
     }

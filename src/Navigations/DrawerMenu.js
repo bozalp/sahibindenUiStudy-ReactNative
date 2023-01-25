@@ -7,6 +7,9 @@ import { useNavigation } from '@react-navigation/native';
 import Icons from '@expo/vector-icons/FontAwesome';
 import Icons2 from '@expo/vector-icons/Ionicons';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { setDark, setLight } from '../ReduxToolkit/Slices/themeSlice';
+
 const CustomButton = ({ title, iconName, whichPage }) => {
     const navigation = useNavigation();
 
@@ -25,7 +28,9 @@ const CustomButton = ({ title, iconName, whichPage }) => {
     )
 }
 const DrawerMenu = ({ navigation }) => {
-    const [theme, setTheme] = useState("dark");
+    //const [theme2, setTheme] = useState("dark");
+    const theme = useSelector((state) => state.theme.theme)
+    const dispatch = useDispatch()
 
     function getTitle(title) {
         if (title.length > 20)
@@ -35,13 +40,13 @@ const DrawerMenu = ({ navigation }) => {
     }
 
     function changeTheme() {
-        setTheme(theme === "dark" ? "light" : "dark");
+        theme.title === "Dark" ? dispatch(setLight()) : dispatch(setDark());
     }
 
-    const renderItems = ({ item }) => <CategoryLine iconBackground={item.iconBackground} iconName={item.iconName} title={getTitle(item.title)} subTitle={getTitle(item.subTitle)} isMenu={true} />
+    const renderItems = ({ item }) => <CategoryLine iconBackground={item.iconBackground} iconName={item.iconName} title={getTitle(item.title)} subTitle={getTitle(item.subTitle)} isMenu={true} category={item.category} />
 
     return (
-        <View style={{ flex: 1, backgroundColor: theme === "dark" ? 'black' : 'white' }}>
+        <View style={{ flex: 1, backgroundColor: theme.backgroundColor }}>
 
             <FlatList
                 ListHeaderComponent={
@@ -54,15 +59,16 @@ const DrawerMenu = ({ navigation }) => {
                 ListFooterComponent={
                     <View style={styles.footer}>
                         <TouchableOpacity activeOpacity={0.7} style={styles.mode_button} onPress={changeTheme}>
-                            <Icons2 name={theme === "dark" ? 'sunny' : 'moon'} size={28} color={theme === "dark" ? 'white' : 'black'} />
-                            <Text style={{ paddingLeft: 10, color: theme === "dark" ? 'white' : 'black' }}>
+                            {/*<Icons2 name={theme === "dark" ? 'sunny' : 'moon'} size={28} color={theme === "dark" ? 'white' : 'black'} />*/}
+                            <Icons2 name={theme.title === "Dark" ? 'sunny' : 'moon'} size={28} color={theme.title === "Dark" ? 'white' : 'black'} />
+                            <Text style={{ paddingLeft: 10, color: theme.title === "Dark" ? 'white' : 'black' }}>
                                 {
-                                    theme === "dark" ? "Gündüz modu" : "Gece Modu"
+                                    theme.title === "Dark" ? "Gündüz modu" : "Gece Modu"
                                 }
                             </Text>
                         </TouchableOpacity>
-                        <Text style={{ color: theme === "dark" ? 'white' : 'black' }}>
-                            Batuhan ÖZALP - github.com/bozalp
+                        <Text style={{ color: theme.title === "Dark" ? 'white' : 'black' }}>
+                            github.com/bozalp
                         </Text>
                     </View>
                 }

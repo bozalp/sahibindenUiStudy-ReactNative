@@ -3,8 +3,11 @@ import Icons from '@expo/vector-icons/FontAwesome5';
 
 import ProductListPage from "./ProductListPage";
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const CategoryLine = ({ iconBackground, iconName, category, title, subTitle, isMenu }) => {
+    const theme = useSelector((state) => state.theme.theme)
+
     const navigation = useNavigation();
 
     function getSubTitle(subTitle) {
@@ -15,18 +18,17 @@ const CategoryLine = ({ iconBackground, iconName, category, title, subTitle, isM
     }
 
     function GoProductsPage() {
-        //Alert.alert(category.toString());
-        navigation.navigate('ProductListPage', {category});
+        navigation.navigate('ProductListPage', { category });
     }
 
     return (
         <View>
-            <TouchableOpacity style={styles.line} activeOpacity={0.7} onPress={GoProductsPage}>
+            <TouchableOpacity style={[styles.line, { backgroundColor: theme.backgroundColor }]} activeOpacity={0.7} onPress={GoProductsPage}>
                 <View style={[styles.iconBg, { backgroundColor: iconBackground }]}>
-                    <Icons name={iconName} size={20} color="#000" />
+                    <Icons name={iconName} size={20} color={theme.backgroundColor} />
                 </View>
                 <View>
-                    <Text style={styles.title}>
+                    <Text style={[styles.title, { color: theme.color }]}>
                         {title}
                     </Text>
                     <Text style={styles.subTitle}>
@@ -36,7 +38,7 @@ const CategoryLine = ({ iconBackground, iconName, category, title, subTitle, isM
                     </Text>
                 </View>
                 {
-                    !isMenu && <Icons name={"angle-right"} size={20} color="#fff" style={styles.right_arrow} />
+                    !isMenu && <Icons name={"angle-right"} size={20} color={theme.color} style={styles.right_arrow} />
                 }
             </TouchableOpacity>
             <View style={styles.bottomLine} />
@@ -51,7 +53,6 @@ const styles = StyleSheet.create(
             width: '100%',
             height: 64,
             flexDirection: 'row',
-            backgroundColor: '#000',
             alignItems: 'center',
             padding: 10,
         },
@@ -77,11 +78,10 @@ const styles = StyleSheet.create(
         title:
         {
             fontSize: 16,
-            color: '#fff'
         },
         subTitle:
         {
-            color: '#bfbfbf',
+            color: '#969696',
             fontSize: 12
         },
         right_arrow:

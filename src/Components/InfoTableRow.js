@@ -1,13 +1,17 @@
 import { View, Text, StyleSheet } from 'react-native';
 
+import { useSelector } from 'react-redux';
+
 const InfoTableRow = ({ title, value, textColor }) => {
+    const theme = useSelector((state) => state.theme.theme)
+
     return (
         <View>
             <View style={styles.info_table}>
-                <Text style={{ color: "white" }}>
+                <Text style={{ color: theme.color }}>
                     {title}
                 </Text>
-                <Text style={{ color: textColor }}>
+                <Text style={{ color: textColor,}}>
                     {value}
                 </Text>
             </View>
@@ -27,7 +31,7 @@ const styles = StyleSheet.create(
         {
             width: '100%',
             height: 1,
-            backgroundColor: '#333',
+            backgroundColor: '#cecece',
             marginTop: 10,
             marginBottom: 10,
         },
