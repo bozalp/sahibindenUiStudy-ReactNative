@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { useState, useEffect } from "react";
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
 import CategoryLine from "../Components/CategoryLine";
-import categories from '../JsonFiles/Categories.json';
 
 import { useNavigation } from '@react-navigation/native';
 import Icons from '@expo/vector-icons/FontAwesome';
@@ -9,6 +8,9 @@ import Icons2 from '@expo/vector-icons/Ionicons';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setDark, setLight } from '../ReduxToolkit/Slices/themeSlice';
+
+import axios from 'axios';
+const CategoriesURL = "https://raw.githubusercontent.com/bozalp/sahibindenUiStudy-ReactNative/main/src/JsonFiles/Categories.json";
 
 const CustomButton = ({ title, iconName, whichPage }) => {
     const navigation = useNavigation();
@@ -30,6 +32,24 @@ const CustomButton = ({ title, iconName, whichPage }) => {
 const DrawerMenu = ({ navigation }) => {
     const theme = useSelector((state) => state.theme.theme)
     const dispatch = useDispatch()
+    const [categories, setCategories] = useState(null);
+    const [isLoading, setLoading] = useState(false);
+
+    const fetchCategories = async () => {
+        try {
+            const response = await axios.get(CategoriesURL);
+            //console.log(response.data);
+            setCategories(response.data);
+            setLoading(true);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchCategories();
+    }, []);
 
     function getTitle(title) {
         if (title.length > 20)
@@ -46,32 +66,35 @@ const DrawerMenu = ({ navigation }) => {
 
     return (
         <View style={{ flex: 1, backgroundColor: theme.backgroundColor }}>
-
-            <FlatList
-                ListHeaderComponent={
-                    <View style={styles.header}>
-                        <CustomButton title={"Anasayfa"} iconName={"home"} whichPage={"CategoryList"} />
-                        <CustomButton title={"Bana Özel"} iconName={"person"} />
-                        <CustomButton title={"İlan Ver"} iconName={"add"} />
-                    </View>
-                }
-                ListFooterComponent={
-                    <View style={styles.footer}>
-                        <TouchableOpacity activeOpacity={0.7} style={styles.mode_button} onPress={changeTheme}>
-                            <Icons2 name={theme.title === "Dark" ? 'sunny' : 'moon'} size={28} color={theme.title === "Dark" ? 'white' : 'black'} />
-                            <Text style={{ paddingLeft: 10, color: theme.title === "Dark" ? 'white' : 'black' }}>
-                                {
-                                    theme.title === "Dark" ? "Gündüz modu" : "Gece Modu"
-                                }
+            {isLoading ?
+                <FlatList
+                    ListHeaderComponent={
+                        <View style={styles.header}>
+                            <CustomButton title={"Anasayfa"} iconName={"home"} whichPage={"CategoryList"} />
+                            <CustomButton title={"Bana Özel"} iconName={"person"} />
+                            <CustomButton title={"İlan Ver"} iconName={"add"} />
+                        </View>
+                    }
+                    ListFooterComponent={
+                        <View style={styles.footer}>
+                            <TouchableOpacity activeOpacity={0.7} style={styles.mode_button} onPress={changeTheme}>
+                                <Icons2 name={theme.title === "Dark" ? 'sunny' : 'moon'} size={28} color={theme.title === "Dark" ? 'white' : 'black'} />
+                                <Text style={{ paddingLeft: 10, color: theme.title === "Dark" ? 'white' : 'black' }}>
+                                    {
+                                        theme.title === "Dark" ? "Gündüz modu" : "Gece Modu"
+                                    }
+                                </Text>
+                            </TouchableOpacity>
+                            <Text style={{ color: theme.title === "Dark" ? 'white' : 'black' }}>
+                                github.com/bozalp
                             </Text>
-                        </TouchableOpacity>
-                        <Text style={{ color: theme.title === "Dark" ? 'white' : 'black' }}>
-                            github.com/bozalp
-                        </Text>
-                    </View>
-                }
-                data={categories}
-                renderItem={renderItems} />
+                        </View>
+                    }
+                    data={categories}
+                    renderItem={renderItems} />
+                :
+                <ActivityIndicator />
+            }
         </View>
     )
 }

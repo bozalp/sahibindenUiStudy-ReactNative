@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, Alert, Dimensions, FlatList } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert, Dimensions, FlatList, ActivityIndicator } from "react-native";
 
 import Icons from '@expo/vector-icons/MaterialIcons';
-import Details from '../JsonFiles/Details.json';
 
 import { useSelector } from 'react-redux';
+
+const detailsUrl = "https://raw.githubusercontent.com/bozalp/sahibindenUiStudy-ReactNative/main/src/JsonFiles/Details.json";;
+import axios from 'axios';
 
 const ProductListPage = ({ route, navigation, image, title, location, price }) => {
     const theme = useSelector((state) => state.theme.theme)
@@ -12,9 +14,22 @@ const ProductListPage = ({ route, navigation, image, title, location, price }) =
     const [data, setData] = useState([{}]);
     const { category } = route.params;
 
+    const [isLoading, setLoading] = useState(false);
+
+    const fetchData = async () => {
+        try {
+            const response = await axios.get(detailsUrl);
+            const filteredData = response.data.filter(d => d.category === category);
+            setData(filteredData);
+            setLoading(true);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
-        const datas = Details.filter(d => d.category === category);
-        setData(datas);
+        fetchData();
     }, []);
 
     function GoProductPage(id) {
@@ -47,16 +62,19 @@ const ProductListPage = ({ route, navigation, image, title, location, price }) =
             <View style={styles.seperate_line} />
         </View>
     return (
-        data.length > 0 ?
-            <FlatList style={{ flex: 1, backgroundColor: theme.backgroundColor }}
-                data={Details.filter(d => d.category === category)}
-                renderItem={renderItems}
-            /> :
-            <View style={{ flex: 1, backgroundColor: theme.backgroundColor }}>
-                <Text style={{ color: theme.color, padding:10 }}>
-                    Burada hiç ilan yok...
-                </Text>
-            </View>
+        isLoading ?
+            data?.length > 0 ?
+                <FlatList style={{ flex: 1, backgroundColor: theme.backgroundColor }}
+                    data={data?.filter(d => d.category === category)}
+                    renderItem={renderItems}
+                /> :
+                <View style={{ flex: 1, backgroundColor: theme.backgroundColor }}>
+                    <Text style={{ color: theme.color, padding: 10 }}>
+                        Burada hiç ilan yok...
+                    </Text>
+                </View>
+            :
+            <ActivityIndicator />
     )
 }
 

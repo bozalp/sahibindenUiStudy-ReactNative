@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { View, Text, FlatList, StyleSheet, TextInput } from "react-native";
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, StyleSheet, TextInput, ActivityIndicator, Alert } from "react-native";
 import CategoryLine from "../Components/CategoryLine";
-import categories from '../JsonFiles/Categories.json';
 
+import axios from 'axios';
 import { useSelector } from 'react-redux';
+
+const CategoriesURL = "https://raw.githubusercontent.com/bozalp/sahibindenUiStudy-ReactNative/main/src/JsonFiles/Categories.json";
 
 const SearchBar = () => {
     const theme = useSelector((state) => state.theme.theme)
@@ -12,7 +14,7 @@ const SearchBar = () => {
     return (
         <View style={[styles.searchBar_area, { backgroundColor: theme.backgroundColor }]}>
             <TextInput placeholder="Kelime veya ilan No. ile ara"
-            placeholderTextColor={'#969696'}
+                placeholderTextColor={'#969696'}
                 onChangeText={newText => setText(newText)} style={[styles.searchBar, { color: theme.color }]} />
         </View>
     )
@@ -20,22 +22,43 @@ const SearchBar = () => {
 
 const CategoryList = ({ navigation }) => {
     const theme = useSelector((state) => state.theme.theme)
+    const [categories, setCategories] = useState(null);
+    const [isLoading, setLoading] = useState(false);
 
-    const renderItems = ({ item }) => <CategoryLine theme={theme} iconBackground={item.iconBackground} iconName={item.iconName} category={item.category} title={item.title} subTitle={item.subTitle} />
+    const fetchCategories = async () => {
+        try {
+            const response = await axios.get(CategoriesURL);
+            setCategories(response.data);
+            setLoading(true);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchCategories();
+    }, []);
+
+    const renderItems = ({ item }) => <CategoryLine theme={theme} iconBackground={item?.iconBackground} iconName={item?.iconName} category={item?.category} title={item?.title} subTitle={item?.subTitle} />
 
     return (
         <View style={{ flex: 1, backgroundColor: theme.backgroundColor }}>
-            <FlatList
-                ListHeaderComponent={
-                    <SearchBar />
-                }
-                ListFooterComponent={
-                    <Text style={[styles.footer, { color: theme.color }]}>
-                        Batuhan ÖZALP - github.com/bozalp
-                    </Text>
-                }
-                data={categories}
-                renderItem={renderItems} />
+            {isLoading ?
+                <FlatList
+                    ListHeaderComponent={
+                        <SearchBar />
+                    }
+                    ListFooterComponent={
+                        <Text style={[styles.footer, { color: theme.color }]}>
+                            Batuhan ÖZALP - github.com/bozalp
+                        </Text>
+                    }
+                    data={categories}
+                    renderItem={renderItems} />
+                :
+                <ActivityIndicator />
+            }
         </View>
     )
 }

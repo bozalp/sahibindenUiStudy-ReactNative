@@ -1,7 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import Icons from '@expo/vector-icons/FontAwesome5';
 
-import ProductListPage from "./ProductListPage";
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
