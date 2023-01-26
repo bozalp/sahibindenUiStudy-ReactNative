@@ -1,0 +1,67 @@
+[
+    {
+        "id": 123456789,
+        "category": "vasita",
+        "title": "Çok temiz araç",
+        "owner": "Yürüyen Johnnie",
+        "subTitle": "Vasıta",
+        "location": "Çanakkale",
+        "images": [
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Tofaş_Kartal_S_blue.jpg/1920px-Tofaş_Kartal_S_blue.jpg",
+            "https://images.unsplash.com/photo-1533167649158-6d508895b680?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=768&ixid=MnwxfDB8MXxyYW5kb218MHx8d2F0ZXJ8fHx8fHwxNjcxNTY2MTUw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1024",
+            "https://images.unsplash.com/photo-1551621962-b8f40dee2f2c?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=768&ixid=MnwxfDB8MXxyYW5kb218MHx8dHJlZXx8fHx8fDE2NzE1NjYxNjY&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1024"
+        ],
+        "price": "134,000 TL",
+        "publishDate": "17.12.2022",
+        "description": "İçinde küfür dahi edilmedi. Sigara bile içilmedi. Çok temiz araç. Dosta gider. ",
+        "location_points": [
+            {
+                "lat": 40.146720,
+                "long": 26.408587
+            }
+        ]
+    },
+    {
+        "id": 456789123,
+        "category": "vasita",
+        "title": "Serdar beye hayırlı olsun",
+        "owner": "Ali Veli Galeri",
+        "subTitle": "Vasıta",
+        "location": "İstanbul",
+        "images": [
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Renault_12TSW_Toros_front.jpg/1920px-Renault_12TSW_Toros_front.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Tofaş_Kartal_S_blue.jpg/1920px-Tofaş_Kartal_S_blue.jpg",
+            "https://images.unsplash.com/photo-1551621962-b8f40dee2f2c?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=768&ixid=MnwxfDB8MXxyYW5kb218MHx8dHJlZXx8fHx8fDE2NzE1NjYxNjY&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1024"
+        ],
+        "price": "120,000 TL",
+        "publishDate": "18.12.2022",
+        "description": "İçinde küfür dahi edilmedi. Sigara bile içilmedi. Çok temiz araç. Dosta gider. ",
+        "location_points": [
+            {
+                "lat": 41.015137,
+                "long": 28.979530
+
+            }
+        ]
+    },
+    {
+        "id": 15346974,
+        "category": "emlak",
+        "title": "Boğaz manzaralı kiralık ev",
+        "owner": "Emlakçı",
+        "subTitle": "Emlak",
+        "location": "İstanbul",
+        "images": [
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Istanbul_asv2020-02_img53_Maiden%27s_Tower.jpg/800px-Istanbul_asv2020-02_img53_Maiden%27s_Tower.jpg"
+        ],
+        "price": "36,000 TL",
+        "publishDate": "18.01.2023",
+        "description": "Boğaz manzaralı kiralık ev. 3 depozito, 1 emlakçı payı, 1 yıllık kira peşin alınacaktır.",
+        "location_points": [
+            {
+                "lat": 41.032921,
+                "long": 29.032669
+            }
+        ]
+    }
+]
