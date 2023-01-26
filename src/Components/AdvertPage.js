@@ -93,7 +93,7 @@ const AdvertPage = ({ route }) => {
                                 </Text>
                             </View> :
                             <View>
-                                <Location />
+                                <Location coordinates={data?.location_points[0]} />
                             </View>
                 }
             </View>

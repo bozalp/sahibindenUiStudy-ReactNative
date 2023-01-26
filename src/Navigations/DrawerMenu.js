@@ -28,7 +28,6 @@ const CustomButton = ({ title, iconName, whichPage }) => {
     )
 }
 const DrawerMenu = ({ navigation }) => {
-    //const [theme2, setTheme] = useState("dark");
     const theme = useSelector((state) => state.theme.theme)
     const dispatch = useDispatch()
 
@@ -59,7 +58,6 @@ const DrawerMenu = ({ navigation }) => {
                 ListFooterComponent={
                     <View style={styles.footer}>
                         <TouchableOpacity activeOpacity={0.7} style={styles.mode_button} onPress={changeTheme}>
-                            {/*<Icons2 name={theme === "dark" ? 'sunny' : 'moon'} size={28} color={theme === "dark" ? 'white' : 'black'} />*/}
                             <Icons2 name={theme.title === "Dark" ? 'sunny' : 'moon'} size={28} color={theme.title === "Dark" ? 'white' : 'black'} />
                             <Text style={{ paddingLeft: 10, color: theme.title === "Dark" ? 'white' : 'black' }}>
                                 {

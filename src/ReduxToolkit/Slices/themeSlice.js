@@ -16,9 +16,6 @@ export const themeSlice = createSlice({
         setLight: (state) => {
             state.theme = lightTheme
         },
-        /*incrementByAmount: (state, action) => {
-            state.value += action.payload
-        },*/
     },
 })
 

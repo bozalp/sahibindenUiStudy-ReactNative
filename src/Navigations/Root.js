@@ -55,14 +55,6 @@ const Root = () => {
                         drawerInactiveTintColor: 'white',
                         headerStyle: { backgroundColor: '#175f92' },
                     }} />
-                    {/*
-                    categories.map((x, key) =>
-                        <Drawer.Screen key={key} name={x.title} component={AdvertPage} options={{
-                            title: x.title,
-                            drawerInactiveTintColor: 'white',
-                        }} />
-                    )*/
-                    }
                 </Drawer.Navigator>
             </NavigationContainer>
         </Provider>

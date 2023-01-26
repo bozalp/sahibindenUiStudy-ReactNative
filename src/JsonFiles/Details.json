@@ -16,8 +16,8 @@
         "description": "İçinde küfür dahi edilmedi. Sigara bile içilmedi. Çok temiz araç. Dosta gider. ",
         "location_points": [
             {
-                "lat": 1,
-                "long": 1
+                "lat": 40.146720,
+                "long": 26.408587
             }
         ]
     },
@@ -38,8 +38,9 @@
         "description": "İçinde küfür dahi edilmedi. Sigara bile içilmedi. Çok temiz araç. Dosta gider. ",
         "location_points": [
             {
-                "lat": 1,
-                "long": 1
+                "lat": 41.015137,
+                "long": 28.979530
+
             }
         ]
     },
@@ -58,8 +59,8 @@
         "description": "Boğaz manzaralı kiralık ev. 3 depozito, 1 emlakçı payı, 1 yıllık kira peşin alınacaktır.",
         "location_points": [
             {
-                "lat": 1,
-                "long": 1
+                "lat": 41.032921,
+                "long": 29.032669
             }
         ]
     }

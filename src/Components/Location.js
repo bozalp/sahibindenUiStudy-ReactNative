@@ -1,36 +1,55 @@
 import React, { useState, useEffect, } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
-const Location = () => {
-    const [coordinateList, setcoordinates] = useState({
+import Details from '../JsonFiles/Details.json';
+
+const Location = ({ coordinates }) => {
+    const [data, setData] = useState([{}]);
+    /*const [coordinateList, setcoordinates] = useState({
         key: 0,
         latitude: 37,
         longitude: 28,
         latitudeDelta: 0.01,
         longitudeDelta: 0.01
-    });
+    });*/
+
+    useEffect(() => {
+        //Alert.alert(coordinates.toString());
+    }
+        , []);
+
+    /*useEffect(() => {
+        //const datas = Details.find(d => d.id === id);
+       // setData(datas);
+        setcoordinates({
+            key: datas.id,
+            latitude: datas.location_points.lat,
+            longitude: datas.location_points.long,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01
+        })
+    }, []);*/
+
     return (
         <View>
             <MapView style={styles.map} region={{
                 key: 0,
-                latitude: 40.146720,
-                longitude: 26.408587,
+                latitude: coordinates?.lat,
+                longitude: coordinates?.long,
                 latitudeDelta: 0.01,
                 longitudeDelta: 0.01
-            }} 
-            mapType="standard">
+            }}
+                mapType="standard">
                 <Marker
-                    // key={index}
                     coordinate={{
                         key: 0,
-                        latitude: 40.146720,
-                        longitude: 26.408587,
+                        latitude: coordinates?.lat,
+                        longitude: coordinates?.long,
                         latitudeDelta: 0.01,
                         longitudeDelta: 0.01
                     }}
                     title="Konum"
-                //description={marker.description}
                 />
             </MapView>
         </View>
